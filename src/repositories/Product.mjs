@@ -29,14 +29,23 @@ class ProductRepository {
 
     static async deleteProduct(id) {
         const response = await pool.query("DELETE FROM products WHERE id = $1 RETURNING *", [id]);
+        return response.rows[0];
+    }
+
+    static async updateProduct(product, id) {
+        const response = await pool.query("UPDATE products SET title = $1, price = $2, ... WHERE id = $3 RETURNING *", [product.title, product.price, id]);
 
         return response.rows[0];
     }
 
-    static async updateProduct(product) {
-        const response = await pool.query("UPDATE products SET title = $1, price = $2, ... WHERE id = $3 RETURNING *", [product.title, product.price, product.id]);
+    static async getProductsByCategory(category) {
+        const response = await pool.query("SELECT * FROM products WHERE category = $1", [category]);
 
-        return response.rows[0];
+        if (!response.rows.length) {
+            return [];
+        }
+
+        return response.rows;
     }
 }
 

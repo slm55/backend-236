@@ -1,4 +1,5 @@
 import pool from "../database.mjs";
+import { hashPassword } from "../helpers/hash.mjs";
 
 class UserRepository {
     static async getUsers() {
@@ -32,7 +33,8 @@ class UserRepository {
     }
 
     static async addUser(user) {
-        const response = await pool.query("INSERT INTO users (email, password, fullname) VALUES ($1, $2, $3) RETURNING *", [user.email, user.password, user.fullname]);
+        const hash = await hashPassword(user.password)
+        const response = await pool.query("INSERT INTO users (email, password, fullname) VALUES ($1, $2, $3) RETURNING *", [user.email, hash, user.fullname]);
 
         if (!response.rows.length) {
             return null;
