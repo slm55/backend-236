@@ -42,7 +42,7 @@ class TodoRepository {
     static async deleteAllTodos(user) {
         const response = await pool.query("DELETE FROM todos WHERE user_id = $1 RETURNING *", [user.id]);
 
-        return response.rows[0];
+        return response.rows;
     }
 }
 
