@@ -24,7 +24,7 @@ class CartController {
         product.quantity = quantity;
         cart.push(product);
         req.session.cart = cart;
-        res.status(201).send(product);
+        res.status(201).send(cart);
     }
 
     async updateProductQuantity(req, res) {
