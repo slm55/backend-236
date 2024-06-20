@@ -9,6 +9,7 @@ import authRouter from "./routes/auth.mjs";
 import cartRouter from "./routes/cart.mjs"
 import "./helpers/local-strategy.mjs";
 import passport from "passport";
+import todoRouter from "./routes/todo.mjs"
 
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
@@ -31,6 +32,7 @@ app.use(passport.session());
 app.use(productRouter);
 app.use(authRouter);
 app.use(cartRouter);
+app.use(todoRouter);
 
 
 const appStart = () => {
