@@ -10,5 +10,8 @@ router.post("/cart/:id", param("id").notEmpty().withMessage("Product ID should b
 router.put("/cart/:id",  controller.updateProductQuantity);
 router.delete("/cart/:id",  controller.deleteProductFromCart);
 router.delete("/cart", controller.clearCart)
+router.post("/checkout", controller.checkout)
+router.get("/orders", controller.getOrders)
+router.get("/orders/:id", controller.getOrderById)
 
 export default router;
